@@ -15,10 +15,7 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
-
-$('document').ready(function(){
-
+function activateVoteButtons(){
   $(".voteButton").click(function(){
 
     let country_code = $(this).attr("data-govid")
@@ -36,5 +33,31 @@ $('document').ready(function(){
       }
     })
   })
-});
+}
 
+
+
+
+$('document').ready(function(){
+  activateVoteButtons()
+  let selectLength = $( "select option:selected" ).text().length
+  $("select").width(selectLength * 14.5 + "px")
+
+  $("select").change(function(){
+    selectLength = $( "select option:selected" ).text().length
+    $("select").width(selectLength * 14.5 + "px")
+      $.ajax({
+        type: "GET", 
+        url: "/load_country",
+        data: {
+
+          
+          cc: $(this).val()        
+        },
+        success: function(){
+          activateVoteButtons()
+        }
+    })
+  })
+})
+  

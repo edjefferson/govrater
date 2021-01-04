@@ -1,8 +1,7 @@
 <div id="votes">
-<h2>Results</h2>
   <% if @total_votes > 0%>
     <% @votes.each do |v| %>
-      <div class="result"><%= image_tag("#{v.rating_no}.svg", :alt => "") %><%= (100 * v.votes/@total_votes).round %>%</div>
+      <div class="result"><%= (100 * v.votes/@total_votes).round %>% (<%= v.votes %> ratings)</div>
     <% end %>
     <% else %>
     <p>No-one has rated yet!</p>

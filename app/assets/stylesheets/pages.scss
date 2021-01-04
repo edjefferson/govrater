@@ -3,12 +3,15 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @import url("//fonts.googleapis.com/css?family=Lato:400,700,900&display=swap");
 :root {
-  --background: black;
-  --foreground: white; 
+  --background: white;
+  --foreground: black; 
 }
 
 body {
-   font-family:'Lato',sans-serif;
+  font-family:'Lato',sans-serif;
+
+}
+#countrycontent {
    display: grid;
    grid-template-columns: 1fr minmax(50%, 800px) 1fr;
    grid-template-rows: 0.25fr minmax(80px, auto) auto 0.5fr;
@@ -19,34 +22,46 @@ body {
   color: var(--foreground); 
 }
 
+
 body> h1 {grid-area: Gov;
 align-self: end;
+text-align: center;
+width: 100%;
 }
 
-div#votes {
-    display: inline-block;
+select {
+  appearance: none;
+  font-family:'Lato',sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  border: none;
+  /* needed for Firefox: */
+  overflow:hidden;
+  display: inline;
+  width: 10%;
 }
-#votes img {
-height: 75px;}
 
-#votes > span {
-  display: list-item;
-  list-style: none;
-}
+
+
+
+
 
 #voteButtons {
  grid-area: Buttons;
- border: var(--foreground) solid 10px;
+ //border: var(--foreground) solid 10px;
  border-bottom: none;
 }
 
-.voteButton {
+.voteButton, .result {
  width:23%;
  padding-left: 1%;
+ padding-right: 1%;
  float:left;
 }
 .voteButton img {
- width: auto; padding: 5%;
+ width: auto; 
   max-height: 200px;
 }
 
@@ -54,12 +69,32 @@ height: 75px;}
 #results {
  float: left;
  grid-area: Results;
- padding: 20px;
- border: var(--foreground) solid 10px;
+ padding-top: 20px;
+ padding-bottom: 20px;
+ //border: var(--foreground) solid 10px;
+ text-align: center;
 }
 
 
 .result {
-    display: flex;
-    padding: 7% 0px;
+
+    text-align: center;
+    padding-left: 1%;
 }
+
+.voteButton img {
+  width:auto;
+  max-height:200px;
+   position: relative; 
+   top: 3%;
+ }
+ 
+ .voteButton img:hover {
+   transform: scale(1.05);
+ }
+ 
+ .voteButton img:active {
+ 
+     transform: scale(.92);
+ 
+ }

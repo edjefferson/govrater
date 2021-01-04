@@ -1,23 +1,18 @@
 <% if @government %>
-  <h1>Rate The Government Of <%= @government.name %> <%= @flag %></h1>
-  <div id="voteButtons">
-    <% (1..4).each do |x| %>
-    <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>">
-      <%= image_tag("#{x}.svg", :alt => "") %>
-    </div>
-    <% end %>
-  </div>
-
-  <div id="results">
-
-  <%= render "votes" %>
-  </div>
-
-  <br>
-  <% if false %>
-  <div>Icons made by <a href="https://www.flaticon.com/authors/smartline" title="Smartline">Smartline</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-
+  <h1>Please rate your customer experience of the government of
+    <select name="post[person_id]" id="post_person_id">
+  <option value="uk" selected="selected"><%= @government.name %> <%= @flag %></option>
+  <% @other_countries.each do |oc| %>
+      <option value="<%= oc.country_code %>"><%= oc.name %> <%= ISO3166::Country.new(oc.country_code.upcase == "UK" ? "GB" : oc.country_code.upcase).emoji_flag %></option>
   <% end %>
-  <% else %>
+</select>
+    today!</h1>
+
+<div id="countrycontent">
+  <%= render "country" %>
+
+</div>
+
+<% else %>
   <h1>Nothing to see here!</h1>
 <% end %>

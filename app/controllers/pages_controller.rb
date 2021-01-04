@@ -19,6 +19,21 @@ class PagesController < ApplicationController
       @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
       @votes = Rating.where(government_id: @government.id).order(:rating_no)
       @total_votes = @votes.sum("votes")
+
+      @other_countries = Government.where.not(id: @government.id).order(:name)
+    end
+
+  end
+
+  def load_country
+    cc = params[:cc]
+    @government = Government.find_by(country_code: cc.upcase)
+    if @government
+      @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
+      @votes = Rating.where(government_id: @government.id).order(:rating_no)
+      @total_votes = @votes.sum("votes")
+
+      @other_countries = Government.where.not(id: @government.id).order(:name)
     end
 
   end
