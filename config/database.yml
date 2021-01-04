@@ -17,9 +17,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: myapp_development
+  database: govrater_development
   pool: 5
-  username: brenden
+  username:
   password:
   timeout: 5000
  
@@ -47,8 +47,8 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: myapp_test
+  database: govrater
   pool: 5
-  username: brenden
+  username:
   password:
   timeout: 5000

@@ -1,11 +1,24 @@
 <div id="voteButtons">
-  <div id="vote1" class="voteButton">1</div>
-  <div id="vote2" class="voteButton">2</div>
-  <div id="vote3" class="voteButton">3</div>
-  <div id="vote4" class="voteButton">4</div>
-  <div id="vote5" class="voteButton">5</div>
+  <div id="vote1" class="voteButton">
+    <%= image_tag("1.svg", :alt => "") %>
+  </div>
+  <div id="vote2" class="voteButton">
+   <%= image_tag("2.svg", :alt => "") %>
+   </div>
+  <div id="vote3" class="voteButton">
+  <%= image_tag("3.svg", :alt => "") %>
+  </div>
+  <div id="vote4" class="voteButton">
+  <%= image_tag("4.svg", :alt => "") %>
+  </div>
 </div>
 
 <div id="results">
 <%= render "votes" %>
 </div>
+
+<br>
+<% if false %>
+<div>Icons made by <a href="https://www.flaticon.com/authors/smartline" title="Smartline">Smartline</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+<% end %>

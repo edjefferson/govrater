@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_01_04_152436) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "ratings", force: :cascade do |t|
     t.integer "rating_no"
     t.integer "votes", default: 0
