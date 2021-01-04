@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    @first_load = true
     if params[:cc]
       cc = params[:cc]
     else

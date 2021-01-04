@@ -41,11 +41,11 @@ function activateVoteButtons(){
 $('document').ready(function(){
   activateVoteButtons()
   let selectLength = $( "select option:selected" ).text().length
-  $("select").width(selectLength * 14.5 + "px")
+  $("select").width(-20 + selectLength * 15.2 + "px")
 
   $("select").change(function(){
     selectLength = $( "select option:selected" ).text().length
-    $("select").width(selectLength * 14.5 + "px")
+    $("select").width(-20 + selectLength * 15.2 + "px")
       $.ajax({
         type: "GET", 
         url: "/load_country",

@@ -1,4 +1,6 @@
 <div id="votes">
+    <% unless @first_load %>
+
   <% if @total_votes > 0%>
     <% @votes.each do |v| %>
       <div class="result"><%= (100 * v.votes/@total_votes).round %>% (<%= v.votes %> ratings)</div>
@@ -6,4 +8,5 @@
     <% else %>
     <p>No-one has rated yet!</p>
   <% end %>
+   <% end %>
 </div>
