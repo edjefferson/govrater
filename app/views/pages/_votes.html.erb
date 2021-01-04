@@ -2,6 +2,6 @@
 <h2>Results</h2>
 
   <% @votes.each do |v| %>
-    <div class="result"><%= image_tag("#{v.rating_no}.svg", :alt => "") %><%= (100 * v.votes/Rating.sum("votes").to_f).round %>%</div>
+    <div class="result"><%= image_tag("#{v.rating_no}.svg", :alt => "") %><%= (100 * v.votes/@total_votes).round %>%</div>
   <% end %>
 </div>

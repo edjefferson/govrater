@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   def index
     @government = Government.find_by(country_code: params[:cc].upcase)
     @votes = Rating.where(government_id: @government.id).order(:rating_no)
+    @total_votes = @votes.count
 
   end
 
@@ -11,6 +12,7 @@ class PagesController < ApplicationController
     rating.votes += 1
     rating.save
     @votes = Rating.where(government_id: @government.id).order(:rating_no)
+    @total_votes = @votes.count
 
     respond_to do |format|
       format.js {}
