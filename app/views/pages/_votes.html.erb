@@ -1,5 +1,5 @@
 <div id="votes">
   <% @votes.each do |v| %>
-    <div class="result"><%= image_tag("#{v.rating_no}.svg", :alt => "") %><%= v.votes %></div>
+    <div class="result"><%= image_tag("#{v.rating_no}.svg", :alt => "") %><%= (100 * v.votes/Rating.sum("votes").to_f).round %>%</div>
   <% end %>
 </div>
