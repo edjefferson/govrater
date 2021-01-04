@@ -1,7 +1,8 @@
 class PagesController < ApplicationController
   def index
     @government = Government.find_by(country_code: params[:cc].upcase)
-    @votes = Rating.order(:rating_no)
+    @votes = Rating.where(government_id: @government.id).order(:rating_no)
+
   end
 
   def vote
