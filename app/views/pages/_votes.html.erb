@@ -1,0 +1,5 @@
+<div id="votes">
+  <% @votes.each do |v| %>
+    <div><%= v.rating_no %>: <%= v.votes %></div>
+  <% end %>
+</div>
