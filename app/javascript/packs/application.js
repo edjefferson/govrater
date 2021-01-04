@@ -14,10 +14,11 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
+let audioElement
 function activateVoteButtons(){
   $(".voteButton").click(function(){
-
+    audioElement.currentTime = 0;
+    audioElement.play()
     let country_code = $(this).attr("data-govid")
     console.log(country_code);
 
@@ -39,6 +40,9 @@ function activateVoteButtons(){
 
 
 $('document').ready(function(){
+
+  audioElement = document.createElement('audio');
+  audioElement.setAttribute('src', 'button.mp3');
   activateVoteButtons()
   let selectLength = $( "select option:selected" ).text().length
   $("select").width(-20 + selectLength * 15.2 + "px")
