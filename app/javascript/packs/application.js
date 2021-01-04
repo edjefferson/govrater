@@ -21,13 +21,16 @@ $('document').ready(function(){
 
   $(".voteButton").click(function(){
 
-    console.log(this.id);
+    let country_code = $(this).attr("data-govid")
+    console.log(country_code);
 
     $.ajax({
       type: "GET", 
       url: "/vote",
       data: {
-        rating_no: this.id.split("vote")[1]
+        cc: country_code,
+        rating_no: this.id.split("vote")[1],
+        
       },
       success: function(){
       }
