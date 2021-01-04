@@ -1,20 +1,23 @@
-
-<h1>Rate The Government Of <%= @government.name %> </h1>
-<div id="voteButtons">
-  <% (1..4).each do |x| %>
-  <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>">
-    <%= image_tag("#{x}.svg", :alt => "") %>
+<% if @government %>
+  <h1>Rate The Government Of <%= @government.name %> </h1>
+  <div id="voteButtons">
+    <% (1..4).each do |x| %>
+    <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>">
+      <%= image_tag("#{x}.svg", :alt => "") %>
+    </div>
+    <% end %>
   </div>
+
+  <div id="results">
+
+  <%= render "votes" %>
+  </div>
+
+  <br>
+  <% if false %>
+  <div>Icons made by <a href="https://www.flaticon.com/authors/smartline" title="Smartline">Smartline</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
   <% end %>
-</div>
-
-<div id="results">
-
-<%= render "votes" %>
-</div>
-
-<br>
-<% if false %>
-<div>Icons made by <a href="https://www.flaticon.com/authors/smartline" title="Smartline">Smartline</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-
+  <% else %>
+  <h1>Nothing to see here!</h1>
 <% end %>
