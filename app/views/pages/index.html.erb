@@ -1,5 +1,5 @@
 <% if @government %>
-  <h1>Please rate your customer experience of the government of
+  <h1>Please rate your customer experience with the government of
     <select name="post[person_id]" id="post_person_id">
   <option value="uk" selected="selected"><%= @government.name %> <%= @flag %></option>
   <% @other_countries.each do |oc| %>
