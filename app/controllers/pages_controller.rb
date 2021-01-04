@@ -10,6 +10,7 @@ class PagesController < ApplicationController
         cc = "uk"
       else
         cc = record['country']['iso_code']
+        cc = "uk" if cc == "gb"
       end
     end
     
