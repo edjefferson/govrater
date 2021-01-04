@@ -1,5 +1,5 @@
 <% if @government %>
-  <h1>Rate The Government Of <%= @government.name %> </h1>
+  <h1>Rate The Government Of <%= @government.name %> <%= @flag %></h1>
   <div id="voteButtons">
     <% (1..4).each do |x| %>
     <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>">
