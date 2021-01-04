@@ -1,5 +1,5 @@
 <div id="votes">
   <% @votes.each do |v| %>
-    <span><%= image_tag("#{v.rating_no}.svg", :alt => "") %>  <%= v.votes %></span>
+    <div class="result"><%= image_tag("#{v.rating_no}.svg", :alt => "") %><%= v.votes %></div>
   <% end %>
 </div>
