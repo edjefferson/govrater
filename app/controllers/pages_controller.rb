@@ -1,6 +1,19 @@
 class PagesController < ApplicationController
   def index
-    @government = Government.find_by(country_code: params[:cc].upcase)
+    if params[:cc]
+      cc = params[:cc]
+    else
+      reader = MaxMind::DB.new('GeoLite2-Country.mmdb', mode: MaxMind::DB::MODE_MEMORY)
+      record = reader.get(request.remote_ip)
+      if record.nil?
+        puts "#{request.remote_ip} was not found in the database"
+        cc = "uk"
+      else
+        cc = record['country']['iso_code']
+      end
+    end
+    
+    @government = Government.find_by(country_code: cc.upcase)
     if @government
       @votes = Rating.where(government_id: @government.id).order(:rating_no)
       @total_votes = @votes.sum("votes")
