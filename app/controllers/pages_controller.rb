@@ -19,7 +19,7 @@ class PagesController < ApplicationController
     end
 
     puts cc
-    cc = "uk" if cc == "gb" 
+    cc = "uk" if cc.downcase == "gb" 
 
     @government = Government.find_by(country_code: cc.upcase)
     if @government
