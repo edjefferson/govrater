@@ -1,23 +1,7 @@
-
-
-<% if @government %>
-  <h1>Please rate your customer experience with the government of
-    <select name="post[person_id]" id="post_person_id">
-  <option value="uk" selected="selected"><%= @government.name %> <%= @flag %></option>
-  <% @other_countries.each do |oc| %>
-      <option value="<%= oc.country_code %>"><%= oc.url_string %> <%= ISO3166::Country.new(oc.country_code.upcase == "UK" ? "GB" : oc.country_code.upcase).emoji_flag %></option>
-  <% end %>
-</select>
-    today!</h1>
-
 <div id="countrycontent">
   <%= render "country" %>
-
 </div>
 
-<% else %>
-  <h1>Nothing to see here!</h1>
-<% end %>
 
 
 <div id='charitybit'>

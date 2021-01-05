@@ -23,10 +23,11 @@ body {
 }
 
 
-body> h1 {grid-area: Gov;
-align-self: end;
-text-align: center;
-width: 100%;
+h1 {
+  grid-area: Gov;
+  align-self: end;
+  text-align: center;
+  width: 100%;
 }
 
 select {
