@@ -1,10 +1,12 @@
 class PagesController < ApplicationController
   def index
-
-   
+    unless cookies["first_time"]
+      @first_load = true
+      cookies["first_time"] = true
+    end
     @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad faceß"]
 
-    @first_load = true
+    
     if params[:cc]
       cc = params[:cc]
     else
