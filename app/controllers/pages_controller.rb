@@ -18,7 +18,6 @@ class PagesController < ApplicationController
       end
     end
 
-    puts cc
     cc = "uk" if cc.downcase == "gb" 
 
     @government = Government.find_by(country_code: cc.upcase)
@@ -39,7 +38,6 @@ class PagesController < ApplicationController
     @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad face"]
     cc = params[:cc]
     cc = "uk" if cc.downcase == "gb"
-    puts cc
     @government = Government.find_by(country_code: cc.upcase)
     if @government
       @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
@@ -68,14 +66,17 @@ class PagesController < ApplicationController
 
   def vote
     @government = Government.find_by(country_code: params[:cc].upcase)
-    rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
-    rating.votes += 1
-    rating.save
-    @votes = Rating.where(government_id: @government.id).order(:rating_no)
-    @total_votes = @votes.sum("votes")
 
-    respond_to do |format|
-      format.js {}
+    if [1,2,3,4].include?(params[:rating_no].to_i)
+      rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
+      rating.votes += 1
+      rating.save
+      @votes = Rating.where(government_id: @government.id).order(:rating_no)
+      @total_votes = @votes.sum("votes")
+
+      respond_to do |format|
+        format.js {}
+      end
     end
     
   end
