@@ -83,4 +83,8 @@ class PagesController < ApplicationController
     end
     
   end
+
+  def ranking
+    @governments = Government.all.sort_by{|g| g.ratings.map{|r| -r.votes}.sum}
+  end
 end

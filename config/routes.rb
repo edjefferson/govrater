@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   root to: 'pages#index'
   get '/vote', to: 'pages#vote'
   get '/load_country', to: 'pages#load_country'
+  get '/ranking', to: 'pages#ranking'
   get ':cc', to: 'pages#index', as: 'government'
 end
