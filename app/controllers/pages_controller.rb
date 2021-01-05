@@ -28,6 +28,7 @@ class PagesController < ApplicationController
 
   def load_country
     cc = params[:cc]
+    cc = "uk" if cc.downcase == "gb"
     @government = Government.find_by(country_code: cc.upcase)
     if @government
       @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
