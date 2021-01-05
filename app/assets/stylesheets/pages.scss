@@ -14,7 +14,7 @@ body {
 #countrycontent {
    display: grid;
    grid-template-columns: 1fr minmax(50%, 800px) 1fr;
-   grid-template-rows: 0.25fr minmax(80px, auto) auto 0.5fr;
+   grid-template-rows: 0.25fr minmax(80px, auto) auto 3em;
    gap: 0px 0px;
    grid-template-areas:
       ". Gov ." ". Buttons ." ". Results ." ". . .";
@@ -28,6 +28,7 @@ h1 {
   align-self: end;
   text-align: center;
   width: 100%;
+  padding-bottom: 3em;
 }
 
 select {

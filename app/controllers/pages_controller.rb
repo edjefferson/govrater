@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   def index
+
+   
     @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad faceß"]
 
     @first_load = true
@@ -13,12 +15,14 @@ class PagesController < ApplicationController
         cc = "uk"
       else
         cc = record['country']['iso_code']
-        cc = "uk" if cc == "gb"
       end
     end
-    
-    @government = Government.find_by(country_code: cc.upcase == "GB" ? "UK" : cc.upcase)
+    cc = "uk" if cc == "gb"
+
+    @government = Government.find_by(country_code: cc.upcase)
     if @government
+
+    
       @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
       @votes = Rating.where(government_id: @government.id).order(:rating_no)
       @total_votes = @votes.sum("votes")
@@ -29,6 +33,7 @@ class PagesController < ApplicationController
   end
 
   def load_country
+
     @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad face"]
     cc = params[:cc]
     cc = "uk" if cc.downcase == "gb"
@@ -44,6 +49,18 @@ class PagesController < ApplicationController
     end
 
 
+  end
+
+  def get_history(cc)
+    history = DailyRecord.order(created_at: :desc)[0]
+    history_scores = JSON.parse(history.record_text)[cc.upcase].sort_by {|x| x["rating_no"]}
+    history_total_votes = history_scores.map {|s| s["votes"]}.sum
+    if history_total_votes > 0
+      history_scores.each do |s|
+        s["percent"] = s["votes"]/history_total_votes.to_f
+      end
+    end
+    history_scores
   end
 
   def vote
