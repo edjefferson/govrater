@@ -29,7 +29,7 @@ class PagesController < ApplicationController
   end
 
   def load_country
-    @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad faceß"]
+    @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad face"]
     cc = params[:cc]
     cc = "uk" if cc.downcase == "gb"
     @government = Government.find_by(country_code: cc.upcase)
