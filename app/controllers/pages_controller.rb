@@ -36,7 +36,13 @@ class PagesController < ApplicationController
       @total_votes = @votes.sum("votes")
 
       @other_countries = Government.where.not(id: @government.id).order(:url_string)
+      
+      respond_to do |format|
+        format.js { render "load_country", :locals => {:@name => "#{@government.name} #{@flag}"}}
+      end
+      
     end
+
 
   end
 

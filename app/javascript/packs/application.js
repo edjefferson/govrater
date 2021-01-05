@@ -48,8 +48,7 @@ $('document').ready(function(){
   $("select").width(-20 + selectLength * 15.2 + "px")
 
   $("select").change(function(){
-    selectLength = $( "select option:selected" ).text().length
-    $("select").width(-20 + selectLength * 15.2 + "px")
+    
       $.ajax({
         type: "GET", 
         url: "/load_country",
@@ -59,6 +58,8 @@ $('document').ready(function(){
           cc: $(this).val()        
         },
         success: function(){
+          selectLength = $( "select option:selected" ).text().length
+          $("select").width(-20 + selectLength * 15.2 + "px")
           activateVoteButtons()
         }
     })

@@ -1,1 +1,6 @@
+console.log("<%= @name %>")
+
+$( "select option:selected" ).text("<%= @name %>")
+console.log("as")
+
 $("#countrycontent").html("<%= escape_javascript(render 'country') %>");
