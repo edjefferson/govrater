@@ -44,6 +44,7 @@ function activateVoteButtons(){
 
 
 $('document').ready(function(){
+  window.history.replaceState(null, null, $( "select option:selected" ).val());
 
   audioElement = document.createElement('audio');
   audioElement.setAttribute('src', 'button2.mp3');
@@ -64,6 +65,8 @@ $('document').ready(function(){
           cc: $(this).val()        
         },
         success: function(){
+          window.history.pushState(null, null, $( "select option:selected" ).val());
+
           activateSelect()
           $( "select option:selected" ).text($( "select option:selected" ).attr("data-fullname"))
           selectLength = $( "select option:selected" ).attr("data-fullname").length
