@@ -21,7 +21,7 @@ class PagesController < ApplicationController
       @votes = Rating.where(government_id: @government.id).order(:rating_no)
       @total_votes = @votes.sum("votes")
 
-      @other_countries = Government.where.not(id: @government.id).order(:name)
+      @other_countries = Government.where.not(id: @government.id).order(:url_string)
     end
 
   end
