@@ -2,11 +2,13 @@
 <% if @government %>
       <h1>How was your customer experience with the government of
         <select name="post[person_id]" id="post_person_id">
-      <option data-fullname="<%= @government.name%> <%= @flag %>" value="<%= @government.country_code.downcase%>" selected="selected"><%= @government.name %> <%= @flag %></option>
+      <option data-fullname="<%= @government.name%>" value="<%= @government.country_code.downcase%>" selected="selected"><%= @government.name %> </option>
       <% @other_countries.each do |oc| %>
-          <option data-fullname="<%= oc.name %> <%= ISO3166::Country.new(oc.country_code.upcase == "UK" ? "GB" : oc.country_code.upcase).emoji_flag %>" value="<%= oc.country_code %>"><%= oc.url_string %> <%= ISO3166::Country.new(oc.country_code.upcase == "UK" ? "GB" : oc.country_code.upcase).emoji_flag %></option>
+          <option data-fullname="<%= oc.name %>" value="<%= oc.country_code %>"><%= oc.url_string %> </option>
       <% end %>
     </select>
+    <div id="flagcontainer">
+    <%= image_tag("flags/#{@government.country_code.downcase}.svg", :class=> "flag", :alt => "#{@government.name} flag") %></div>
         today?</h1>
 
         <div id="voteButtons">
