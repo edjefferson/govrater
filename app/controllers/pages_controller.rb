@@ -17,7 +17,9 @@ class PagesController < ApplicationController
         cc = record['country']['iso_code']
       end
     end
-    cc = "uk" if cc == "gb"
+
+    puts cc
+    cc = "uk" if cc == "gb" 
 
     @government = Government.find_by(country_code: cc.upcase)
     if @government
@@ -37,6 +39,7 @@ class PagesController < ApplicationController
     @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad face"]
     cc = params[:cc]
     cc = "uk" if cc.downcase == "gb"
+    puts cc
     @government = Government.find_by(country_code: cc.upcase)
     if @government
       @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
