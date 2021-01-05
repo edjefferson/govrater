@@ -5,7 +5,7 @@
     <select name="post[person_id]" id="post_person_id">
   <option value="uk" selected="selected"><%= @government.name %> <%= @flag %></option>
   <% @other_countries.each do |oc| %>
-      <option value="<%= oc.country_code %>"><%= oc.name %> <%= ISO3166::Country.new(oc.country_code.upcase == "UK" ? "GB" : oc.country_code.upcase).emoji_flag %></option>
+      <option value="<%= oc.country_code %>"><%= oc.url_string %> <%= ISO3166::Country.new(oc.country_code.upcase == "UK" ? "GB" : oc.country_code.upcase).emoji_flag %></option>
   <% end %>
 </select>
     today!</h1>
