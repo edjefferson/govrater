@@ -11,9 +11,13 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+
 let audioElement
 function activateVoteButtons(){
   $(".voteButton").mousedown(function(event){
@@ -29,7 +33,10 @@ function activateVoteButtons(){
     console.log(country_code);
 
     $.ajax({
-      type: "GET", 
+      type: "POST",
+      headers: {
+        "X-CSRF-Token": csrfToken,
+      },
       url: "/vote",
       data: {
         cc: country_code,

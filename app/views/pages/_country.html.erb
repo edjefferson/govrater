@@ -1,8 +1,8 @@
 
 <% if @government %>
       <h1>How was your customer experience with the government of
-        <select name="post[person_id]" id="post_person_id">
-      <option data-fullname="<%= @government.name%>" value="<%= @government.country_code.downcase%>" selected="selected"><%= @government.name %> </option>
+        <select name="country_select" id="country_select">
+      <option  data-fullname="<%= @government.name%>" value="<%= @government.country_code.downcase%>" selected="selected"><%= @government.name %> </option>
       <% @other_countries.each do |oc| %>
           <option data-fullname="<%= oc.name %>" value="<%= oc.country_code %>"><%= oc.url_string %> </option>
       <% end %>
