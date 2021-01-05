@@ -2,9 +2,9 @@ class PagesController < ApplicationController
   def index
     unless cookies["first_time"]
       @first_load = true
-      tomorrow_date = Time.now().tomorrow
-      cookies["first_time"] = {value: "true", expires: Time.utc(tomorrow_date.year, tomorrow_date.month, tomorrow_date.day, 0)}
     end
+    tomorrow_date = Time.now().tomorrow
+    cookies["first_time"] = {value: "true", expires: Time.utc(tomorrow_date.year, tomorrow_date.month, tomorrow_date.day, 0)}
     @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad faceß"]
 
     
