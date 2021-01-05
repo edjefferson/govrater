@@ -16,9 +16,11 @@ Turbolinks.start()
 ActiveStorage.start()
 let audioElement
 function activateVoteButtons(){
-  $(".voteButton").mousedown(function(){
-    audioElement.currentTime = 0;
-    audioElement.play();
+  $(".voteButton").mousedown(function(event){
+    if (event.which === 1) {
+      audioElement.currentTime = 0;
+      audioElement.play();
+    }
   })
 
   $(".voteButton").click(function(){

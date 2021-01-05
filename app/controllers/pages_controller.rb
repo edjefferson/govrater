@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   def index
+    @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad faceß"]
+
     @first_load = true
     if params[:cc]
       cc = params[:cc]
@@ -27,6 +29,7 @@ class PagesController < ApplicationController
   end
 
   def load_country
+    @alt_texts = ["happy face","indifferent face","slightly sad face", "very sad faceß"]
     cc = params[:cc]
     cc = "uk" if cc.downcase == "gb"
     @government = Government.find_by(country_code: cc.upcase)
