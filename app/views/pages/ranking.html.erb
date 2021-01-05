@@ -1,0 +1,40 @@
+<table>
+<tr>
+<th>
+  Government
+</th>
+<th>
+  Total votes
+</th>
+<th>
+  R1
+</th>
+<th>
+  R2
+</th>
+<th>
+  R3
+</th>
+<th>
+  R4
+</th>
+</tr>
+<% @governments.each do |g| %>
+  <tr>
+    <td>
+      <%= g.name %>
+    </td>
+
+    <td>
+      <%= g.ratings.map {|x| x["votes"]}.sum %>
+    </td>
+
+    <% g.ratings.sort_by{|x| x["rating_no"]}.each do |g| %>
+      <td>
+       <%= g["votes"] %> 
+       </td>
+    <% end %>
+    
+  </tr>
+<% end %>
+<table>
