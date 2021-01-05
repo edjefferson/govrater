@@ -44,11 +44,13 @@ $('document').ready(function(){
   audioElement = document.createElement('audio');
   audioElement.setAttribute('src', 'button.mp3');
   activateVoteButtons()
-  let selectLength = $( "select option:selected" ).text().length
-  $("select").width(-20 + selectLength * 15.2 + "px")
-
-  $("select").change(function(){
-    
+  
+  activateSelect()
+  function activateSelect(){
+    let selectLength = $( "select option:selected" ).text().length
+    $("select").width(-20 + selectLength * 15.2 + "px")
+    $("select").change(function(){
+      
       $.ajax({
         type: "GET", 
         url: "/load_country",
@@ -58,11 +60,14 @@ $('document').ready(function(){
           cc: $(this).val()        
         },
         success: function(){
-          selectLength = $( "select option:selected" ).text().length
+          activateSelect()
+          $( "select option:selected" ).text($( "select option:selected" ).attr("data-fullname"))
+          selectLength = $( "select option:selected" ).attr("data-fullname").length
           $("select").width(-20 + selectLength * 15.2 + "px")
           activateVoteButtons()
         }
     })
   })
+  }
 })
   
