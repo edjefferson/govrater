@@ -3,7 +3,7 @@
 
   <% if @total_votes > 0%>
     <% @votes.each do |v| %>
-      <div class="result"><%= (100 * v.votes/@total_votes).round(1) %>% (<%= v.votes %> ratings)</div>
+      <div class="result"><%= (100 * v.votes/@total_votes.to_f).round(1) %>% (<%= v.votes %> ratings)</div>
     <% end %>
     <% else %>
     <p>No-one has rated this government yet today!</p>
