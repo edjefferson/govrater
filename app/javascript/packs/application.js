@@ -16,9 +16,13 @@ Turbolinks.start()
 ActiveStorage.start()
 let audioElement
 function activateVoteButtons(){
-  $(".voteButton").click(function(){
+  $(".voteButton").mousedown(function(){
     audioElement.currentTime = 0;
-    audioElement.play()
+    audioElement.play();
+  })
+
+  $(".voteButton").click(function(){
+    
     let country_code = $(this).attr("data-govid")
     console.log(country_code);
 
@@ -42,7 +46,7 @@ function activateVoteButtons(){
 $('document').ready(function(){
 
   audioElement = document.createElement('audio');
-  audioElement.setAttribute('src', 'button.mp3');
+  audioElement.setAttribute('src', 'button2.mp3');
   activateVoteButtons()
   
   activateSelect()
