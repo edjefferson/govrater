@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
   def index
+    unless cookies.encrypted["check_code"]
+      cookies.encrypted["check_code"] = "empty"
+    end
     unless cookies["first_time"]
       @first_load = true
     end
@@ -66,8 +69,7 @@ class PagesController < ApplicationController
   end
 
   def vote
-    
-    if !cookies.encrypted["check_code"] || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 100
+    if cookies.encrypted["check_code"] == "empty" || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 100
       
       cookies.encrypted["check_code"] = params[:check_code]
 
