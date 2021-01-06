@@ -30,7 +30,6 @@ function activateVoteButtons(){
   $(".voteButton").click(function(){
     
     let country_code = $(this).attr("data-govid")
-    console.log(country_code);
 
     $.ajax({
       type: "POST",
@@ -86,7 +85,7 @@ function updateHistory(){
 
     let current_percent = $(".result:nth-of-type(" + h.rating_no + ")").attr("data-rawpercent")
     if (!h.percent && h.percent != 0 ) {
-      console.log("no current data")
+      //e.log("no current data")
     } else if (current_percent > h.percent * 100 ) {
       $(".result:nth-of-type(" + h.rating_no + ") > #yesterday").text("was " + formatted_percent + " yesterday")
       $(".result:nth-of-type(" + h.rating_no + ") > #arrows > .greenarrow").css("display","inline")
@@ -98,7 +97,7 @@ function updateHistory(){
       $(".result:nth-of-type(" + h.rating_no + ") > #yesterday").text("No change")
 
     }
-    console.log(h)
+    //console.log(h)
 
   })
 }
