@@ -89,7 +89,7 @@ class PagesController < ApplicationController
         cookies["cvc"] = votes_data.to_json
         
         cookies["lvc"] = 0 unless cookies["lvc"]
-        cookies["lvc"] += 1 
+        cookies["lvc"] = cookies["lvc"].to_i + 1
         @votes = Rating.where(government_id: @government.id).order(:rating_no)
         @total_votes = @votes.sum("votes")
 
