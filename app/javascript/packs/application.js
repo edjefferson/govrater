@@ -49,8 +49,58 @@ function activateVoteButtons(){
   })
 }
 
+function activateSelect(){
+  let selectLength = $( "select option:selected" ).text().length
+  $("select").width(10 + selectLength * 16 + "px")
+  $("select").change(function(){
+    $.ajax({
+      type: "GET", 
+      url: "/load_country",
+      data: {
+        cc: $(this).val()        
+      },
+      success: function(){
+        window.history.pushState(null, null, $( "select option:selected" ).val());
 
+        activateSelect()
+        $( "select option:selected" ).text($( "select option:selected" ).attr("data-fullname"))
+        selectLength = $( "select option:selected" ).attr("data-fullname").length
+        $("select").width(10 + selectLength * 16 + "px")
+        activateVoteButtons()
+        updateHistory()
+      }
+    })
+  })
+}
 
+function updateHistory(){
+  let history = JSON.parse($("#results").attr("data-historyscores"))
+  history.forEach( h => {
+    let formatted_percent = String(Math.round(h.percent * 1000)/10)
+    if (~formatted_percent.indexOf(".") ) {
+      formatted_percent = formatted_percent + "%"
+    } else {
+      formatted_percent = formatted_percent + ".0%"
+    }
+
+    let current_percent = $(".result:nth-of-type(" + h.rating_no + ")").attr("data-rawpercent")
+    if (!h.percent && h.percent != 0 ) {
+      console.log("no current data")
+    } else if (current_percent > h.percent * 100 ) {
+      $(".result:nth-of-type(" + h.rating_no + ") > #yesterday").text("was " + formatted_percent + " yesterday")
+      $(".result:nth-of-type(" + h.rating_no + ") > #arrows > .greenarrow").css("display","inline")
+    } else if (current_percent < h.percent * 100 ) {
+      $(".result:nth-of-type(" + h.rating_no + ") > #yesterday").text("was " + formatted_percent + " yesterday")
+
+      $(".result:nth-of-type(" + h.rating_no + ") > #arrows > .redarrow").css("display","inline")
+    } else {
+      $(".result:nth-of-type(" + h.rating_no + ") > #yesterday").text("No change")
+
+    }
+    console.log(h)
+
+  })
+}
 
 $('document').ready(function(){
   window.history.replaceState(null, null, $( "select option:selected" ).val());
@@ -58,32 +108,6 @@ $('document').ready(function(){
   audioElement = document.createElement('audio');
   audioElement.setAttribute('src', 'button2.mp3');
   activateVoteButtons()
-  
   activateSelect()
-  function activateSelect(){
-    let selectLength = $( "select option:selected" ).text().length
-    $("select").width(10 + selectLength * 16 + "px")
-    $("select").change(function(){
-      
-      $.ajax({
-        type: "GET", 
-        url: "/load_country",
-        data: {
-
-          
-          cc: $(this).val()        
-        },
-        success: function(){
-          window.history.pushState(null, null, $( "select option:selected" ).val());
-
-          activateSelect()
-          $( "select option:selected" ).text($( "select option:selected" ).attr("data-fullname"))
-          selectLength = $( "select option:selected" ).attr("data-fullname").length
-          $("select").width(10 + selectLength * 16 + "px")
-          activateVoteButtons()
-        }
-    })
-  })
-  }
+  updateHistory()
 })
-  

@@ -25,12 +25,9 @@ class PagesController < ApplicationController
 
     @government = Government.find_by(country_code: cc.upcase)
     if @government
-
-    
-      @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
       @votes = Rating.where(government_id: @government.id).order(:rating_no)
       @total_votes = @votes.sum("votes")
-
+      @history_scores = get_history(cc)
       @other_countries = Government.where.not(id: @government.id).order(:url_string)
     end
 
@@ -43,13 +40,10 @@ class PagesController < ApplicationController
     cc = "uk" if cc.downcase == "gb"
     @government = Government.find_by(country_code: cc.upcase)
     if @government
-      @flag = ISO3166::Country.new(cc.upcase == "UK" ? "GB" : cc.upcase).emoji_flag
       @votes = Rating.where(government_id: @government.id).order(:rating_no)
       @total_votes = @votes.sum("votes")
-
+      @history_scores = get_history(cc)
       @other_countries = Government.where.not(id: @government.id).order(:url_string)
-      
-      
     end
 
 
@@ -57,14 +51,18 @@ class PagesController < ApplicationController
 
   def get_history(cc)
     history = DailyRecord.order(created_at: :desc)[0]
-    history_scores = JSON.parse(history.record_text)[cc.upcase].sort_by {|x| x["rating_no"]}
-    history_total_votes = history_scores.map {|s| s["votes"]}.sum
-    if history_total_votes > 0
-      history_scores.each do |s|
-        s["percent"] = s["votes"]/history_total_votes.to_f
+    if history.created_at >= Time.now - 1.day
+      history_scores = JSON.parse(history.record_text)[cc.upcase].sort_by {|x| x["rating_no"]}
+      history_total_votes = history_scores.map {|s| s["votes"]}.sum
+      if history_total_votes > 0
+        history_scores.each do |s|
+          s["percent"] = s["votes"]/history_total_votes.to_f
+        end
       end
+      history_scores
+    else
+      [{rating_no: 1},{rating_no: 2},{rating_no: 3},{rating_no: 4}]
     end
-    history_scores
   end
 
   def vote

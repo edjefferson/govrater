@@ -19,10 +19,10 @@
     </div>
     <% end %>
   </div>
-  <div id="results">
-
-  <%= render "votes" %>
+  <div id="results" data-historyscores="<%= @history_scores.to_json%>">
+    <%= render "votes" %>
   </div>
+ 
 
   
   
