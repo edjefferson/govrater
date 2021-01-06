@@ -52,9 +52,9 @@ function updateAchievements(){
   cvc = Cookies.get("cvc")
   lvc = Cookies.get("lvc")
   achievementNumbers.forEach( x => {
-    //if (parseInt(lvc) >= x) {
+    if (parseInt(lvc) >= x) {
       $("#achievements").append(medalsvg(colorArray[Math.floor(Math.random() * colorArray.length)],x + " clicks!"))
-    //} 
+    } 
   })
   if (lvc) {
     achievementNumbers = achievementNumbers.filter(ac => ac > parseInt(lvc));
