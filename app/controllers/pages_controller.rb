@@ -79,17 +79,17 @@ class PagesController < ApplicationController
         rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
         rating.votes += 1
         rating.save
-        unless cookies.encrypted["countries"]
+        unless cookies["cvc"]
           votes_data = []
         else
-          votes_data = JSON.parse(cookies.encrypted["countries"])
+          votes_data = JSON.parse(cookies["cvc"])
         end
       
         votes_data << @government.id unless votes_data.include? @government.id
-        cookies.encrypted["countries"] = votes_data.to_json
+        cookies["cvc"] = votes_data.to_json
         
-        cookies.encrypted["lifetime_vote_count"] = 0 unless cookies.encrypted["lifetime_vote_count"]
-        cookies.encrypted["lifetime_vote_count"] += 1 
+        cookies["lvc"] = 0 unless cookies["lvc"]
+        cookies["lvc"] += 1 
         @votes = Rating.where(government_id: @government.id).order(:rating_no)
         @total_votes = @votes.sum("votes")
 

@@ -5,6 +5,9 @@
 
 import $ from 'jquery';
 global.$ = $;
+import Cookies from 'js.cookie';
+window.Cookies = Cookies;
+
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
@@ -19,6 +22,15 @@ ActiveStorage.start()
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content
 
 let audioElement
+
+let cvc
+let lvc
+
+function updateAchievements(){
+  cvc = Cookies.get("cvc")
+  lvc = Cookies.get("lvc")
+}
+
 function activateVoteButtons(){
   $(".voteButton").mousedown(function(event){
     if (event.which === 1) {
