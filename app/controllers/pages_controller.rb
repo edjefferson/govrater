@@ -79,6 +79,8 @@ class PagesController < ApplicationController
         rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
         rating.votes += 1
         rating.save
+        cookies.encrypted["lifetime_vote_count"] = 0 unless cookies.encrypted["lifetime_vote_count"]
+        cookies.encrypted["lifetime_vote_count"] += 1 
         @votes = Rating.where(government_id: @government.id).order(:rating_no)
         @total_votes = @votes.sum("votes")
 
