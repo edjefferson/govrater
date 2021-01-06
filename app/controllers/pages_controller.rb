@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    if params[:carers] == "true" || (Time.now.wday == 4 && Time.now.hour == 20 && Time.now.minute < 10)
+    if params[:heroes] || (Time.now.wday == 4 && Time.now.hour == 20 && Time.now.minute < 10)
       @carers = true
     end
     unless cookies.encrypted["check_code"]
@@ -16,6 +16,8 @@ class PagesController < ApplicationController
     
     if params[:cc]
       cc = params[:cc]
+    elsif @carers
+      cc = "uk"
     else
       reader = MaxMind::DB.new('GeoLite2-Country.mmdb', mode: MaxMind::DB::MODE_MEMORY)
       record = reader.get(request.remote_ip)
