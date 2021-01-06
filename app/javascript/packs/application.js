@@ -41,7 +41,7 @@ function activateVoteButtons(){
       data: {
         cc: country_code,
         rating_no: this.id.split("vote")[1],
-        
+        check_code: Date.now()
       },
       success: function(){
         updateHistory()

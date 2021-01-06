@@ -1,1 +1,3 @@
+<% unless @no_vote %>
 $("#results").html("<%= escape_javascript(render 'votes') %>");
+<% end %>

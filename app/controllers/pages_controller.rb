@@ -66,17 +66,28 @@ class PagesController < ApplicationController
   end
 
   def vote
-    @government = Government.find_by(country_code: params[:cc].upcase)
+    
+    if !cookies.encrypted["check_code"] || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 100
+      
+      cookies.encrypted["check_code"] = params[:check_code]
 
-    if [1,2,3,4].include?(params[:rating_no].to_i)
-      rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
-      rating.votes += 1
-      rating.save
-      @votes = Rating.where(government_id: @government.id).order(:rating_no)
-      @total_votes = @votes.sum("votes")
+      @government = Government.find_by(country_code: params[:cc].upcase)
 
+      if [1,2,3,4].include?(params[:rating_no].to_i)
+        rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
+        rating.votes += 1
+        rating.save
+        @votes = Rating.where(government_id: @government.id).order(:rating_no)
+        @total_votes = @votes.sum("votes")
+
+        respond_to do |format|
+          format.js {}
+        end
+      end
+
+    else
       respond_to do |format|
-        format.js {}
+        format.js { render "vote", :locals => { :@no_vote => true } }
       end
     end
     
