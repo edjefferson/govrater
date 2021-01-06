@@ -44,6 +44,7 @@ function activateVoteButtons(){
         
       },
       success: function(){
+        updateHistory()
       }
     })
   })
