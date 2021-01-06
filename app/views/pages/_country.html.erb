@@ -1,6 +1,12 @@
 
 <% if @government %>
-      <h1>How was your customer experience with the government of
+
+<% if @carers %>
+  <h1 style="padding-bottom: 0.5em;">
+<% else %>
+      <h1>
+      <% end %>
+      How was your customer experience with the government of
         <select name="country_select" id="country_select">
       <option  data-fullname="<%= @government.name%>" value="<%= @government.country_code.downcase%>" selected="selected"><%= @government.name %> </option>
       <% @other_countries.each do |oc| %>
@@ -12,7 +18,10 @@
         today?</h1>
 
         <div id="voteButtons">
+    <% if @carers %>
 
+        <h2 style="text-align: center; font-size: 2em; padding-bottom: 1em;">PLEASE CLICK FOR OUR CARERS!</h2>
+<% end %>
     <% (1..4).each do |x| %>
     <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>">
       <%= image_tag("#{x}.svg", :alt => @alt_texts[x - 1]) %>

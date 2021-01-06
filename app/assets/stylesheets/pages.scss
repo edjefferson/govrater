@@ -11,15 +11,17 @@ body {
   font-family:'Lato',sans-serif;
 
 }
+
+.carers {
+  background-color: #acecf7;
+}
 #countrycontent {
    display: grid;
    grid-template-columns: 1fr minmax(50%, 800px) 1fr;
    grid-template-rows: 0.25fr minmax(80px, auto) auto 3em;
    gap: 0px 0px;
    grid-template-areas:
-      ". Gov ." ". Buttons ." ". Results ." ". . .";
-  background: var(--background);
-  color: var(--foreground); 
+      ". Gov ." ". Buttons ." ". Results ." ". . ."
 }
 
 
@@ -43,6 +45,7 @@ select {
   overflow:hidden;
   display: inline;
   width: 10%;
+  background-color: inherit;
   text-decoration: underline;
   text-decoration-style: dotted;
 }

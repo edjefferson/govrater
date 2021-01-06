@@ -1,3 +1,7 @@
+<% if @carers %>
+  <% content_for(:body_class) { 'carers' } %>
+<% end %>
+
 <div id="countrycontent">
   <%= render "country" %>
 </div>
@@ -5,8 +9,17 @@
 
 
 <div id='charitybit'>
+
+<% if @carers %>
+    We encourage people rating from the UK to support <a href="https://www.nhscharitiestogether.co.uk/donate/">NHS Charities Together</a> at this fairly appalling time.
+
+<% else %>
   We encourage people rating from the UK to support <a href="https://www.trusselltrust.org/make-a-donation/">The Trussell Trust</a> at this fairly appalling time.
+<% end %>
+
 </div>
+
+
 
 <br>
 <br>
