@@ -82,7 +82,7 @@ function updateAchievements(){
 
   cAchievementNumbers.forEach( x => {
     if (cvc.length >= x) {
-      $("#achievements").append(globesvg(colorArray.pop(),x + " countries rated!"))
+      $("#achievements").append(globesvg(colorArray.pop(),x + " governments rated!"))
       if (colorArray.length === 0){reloadColorArray()}
     } 
   })
