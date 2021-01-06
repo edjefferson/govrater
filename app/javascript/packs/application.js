@@ -157,7 +157,11 @@ $('document').ready(function(){
   window.history.replaceState(null, null, $( "select option:selected" ).val());
 
   audioElement = document.createElement('audio');
-  audioElement.setAttribute('src', 'button2.mp3');
+  if ($("body").hasClass("carers")) {
+    audioElement.setAttribute('src', 'clapclapclap.mp3');
+  } else {
+    audioElement.setAttribute('src', 'button2.mp3');
+  }
   activateVoteButtons()
   activateSelect()
   updateHistory()
