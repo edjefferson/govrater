@@ -18,19 +18,31 @@ body {
 #countrycontent {
    display: grid;
    grid-template-columns: 1fr minmax(50%, 800px) 1fr;
-   grid-template-rows: 0.25fr minmax(80px, auto) auto 3em;
+   grid-template-rows: 0.25fr 3em minmax(80px, auto) auto 3em;
    gap: 0px 0px;
    grid-template-areas:
-      ". Gov ." ". Buttons ." ". Results ." ". . ."
+      ". Gov ." ". Achievements ." ". Buttons ." ". Results ." ". . ."
 }
 
+#achievements {
+  grid-area: Achievements;
+}
+
+.acontainer {
+  height: 100%;
+  float:left;
+}
+
+.acontainer > svg {
+  height: 50%;
+}
 
 h1 {
   grid-area: Gov;
   align-self: end;
   text-align: center;
   width: 100%;
-  padding-bottom: 3em;
+  padding-bottom: 2em;
 }
 
 select {
