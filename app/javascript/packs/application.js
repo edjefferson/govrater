@@ -136,6 +136,7 @@ function activateSelect(){
         cc: $(this).val()        
       },
       success: function(){
+        $("body").removeClass("carers")
         window.history.pushState(null, null, $( "select option:selected" ).val());
         activateSelect()
         $( "select option:selected" ).text($( "select option:selected" ).attr("data-fullname"))
