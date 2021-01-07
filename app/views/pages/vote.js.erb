@@ -13,7 +13,8 @@ if (!Array.isArray(Cookies.get("cvc"))) {
 a = Cookies.get("cvc")
 if (!a.includes(country_id)){
   a.push(country_id)
-  a = [...new Set(a)]
-  Cookies.set("cvc",a)
+  
 }
+a = [...new Set(a)]
+Cookies.set("cvc",a)
 <% end %>
