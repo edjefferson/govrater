@@ -86,7 +86,7 @@ function updateAchievements(){
       if (colorArray.length === 0){reloadColorArray()}
     } 
   })
-  if (cvc) {
+  if (Array.isArray(cvc)) {
     cAchievementNumbers = cAchievementNumbers.filter(ac => ac > cvc.length);
   }
 
