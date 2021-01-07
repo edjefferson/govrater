@@ -101,7 +101,7 @@ let lastVoteRating = 0
 
 
 
-function sendUnsentVotes() {
+function sendUnsentVotes(refresh) {
   let country_code = $("#vote1").attr("data-govid")
   $.ajax({
     type: "POST",
@@ -110,6 +110,7 @@ function sendUnsentVotes() {
     },
     url: "/vote",
     data: {
+      refresh: refresh,
       vote_count: unsentVotes,
       cc: country_code,
       rating_no: lastVoteRating,
@@ -131,7 +132,7 @@ function renumberVotes(voted_rating_no){
   $(".result").each(function(){
     total += parseInt($(this).attr("data-rawscore"))
   })
-  console.log(total)
+  //console.log(total)
   $(".result").each(function(){
     let score = parseFloat($(this).attr("data-rawscore"))
     let percent = (Math.round(1000*score/total)/10).toString()
@@ -160,17 +161,16 @@ function activateVoteButtons(){
 
     let voteRating = parseInt(this.id.split("vote")[1])
     
-    console.log(voteRating)
-    console.log(lastVoteRating)
+  
     if (voteRating != lastVoteRating) {
-      sendUnsentVotes()
+      sendUnsentVotes(true)
       unsentVotes += 1
       lastVoteRating = voteRating
-      sendUnsentVotes()
+      sendUnsentVotes(true)
     } else if (Date.now() - votesLastSentTime >= 1000) {
       unsentVotes += 1
       lastVoteRating = voteRating
-      sendUnsentVotes()
+      sendUnsentVotes(true)
     } else {
       unsentVotes += 1
       lastVoteRating = voteRating
@@ -212,7 +212,7 @@ function activateSelect(){
         cc: $(this).val()        
       },
       success: function(){
-        sendUnsentVotes()
+        sendUnsentVotes(true)
         $("body").removeClass("carers")
         window.history.pushState(null, null, $( "select option:selected" ).val());
         activateSelect()
@@ -283,7 +283,7 @@ $('document').ready(function(){
   updateHistory()
 
   $(window).on('beforeunload', function() {
-    console.log("bye!")
-    sendUnsentVotes()
+    //console.log("bye!")
+    sendUnsentVotes(false)
   });
 })
