@@ -10,8 +10,9 @@ Cookies.set("lvc",Cookies.get("lvc") + 1)
 if (!Array.isArray(Cookies.get("cvc"))) {
   Cookies.set("cvc",[])
 }
-if (Cookies.get("cvc").includes(country_id)){
-  a = Cookies.get("cvc")
+
+if (!Cookies.get("cvc").includes(country_id)){
+  
   a.push(country_id)
   Cookies.set("cvc",a)
 }
