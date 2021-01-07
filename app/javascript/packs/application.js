@@ -22,7 +22,7 @@ ActiveStorage.start()
 const csrfToken = document.querySelector('meta[name="csrf-token"]').content
 
 let audioElement
-
+let country_id
 let cvc
 let lvc
 
@@ -106,7 +106,6 @@ function activateVoteButtons(){
   $(".voteButton").click(function(){
     
     let country_code = $(this).attr("data-govid")
-
     $.ajax({
       type: "POST",
       headers: {

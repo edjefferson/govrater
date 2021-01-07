@@ -1,3 +1,18 @@
 <% unless @no_vote %>
 $("#results").html("<%= escape_javascript(render 'votes') %>");
+
+country_id = parseInt($("#vote1").attr("data-govrecordid"))
+
+if (!Cookies.get("lvc")) {
+  Cookies.set("lvc",0)
+}
+Cookies.set("lvc",Cookies.get("lvc") + 1)
+if (!Array.isArray(Cookies.get("cvc"))) {
+  Cookies.set("cvc",[])
+}
+if (Cookies.get("cvc").includes(country_id)){
+  a = Cookies.get("cvc")
+  a.push(country_id)
+  Cookies.set("cvc",a)
+}
 <% end %>
