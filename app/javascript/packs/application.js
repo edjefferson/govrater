@@ -95,6 +95,52 @@ function updateAchievements(){
 
 }
 
+let votesLastSentTime = Date.now()
+let unsentVotes = 0
+let lastVoteRating = 0
+
+
+
+function sendUnsentVotes() {
+  let country_code = $("#vote1").attr("data-govid")
+  $.ajax({
+    type: "POST",
+    headers: {
+      "X-CSRF-Token": csrfToken,
+    },
+    url: "/vote",
+    data: {
+      vote_count: unsentVotes,
+      cc: country_code,
+      rating_no: lastVoteRating,
+      check_code: Date.now()
+    },
+    success: function(){
+      updateHistory()
+      updateAchievements()
+    }
+  })
+  votesLastSentTime = Date.now()
+  unsentVotes = 0
+}
+
+function renumberVotes(voted_rating_no){
+  let total = 0
+  let old_score = $(".result:nth-of-type("+voted_rating_no+")").attr("data-rawscore")
+  $(".result:nth-of-type("+voted_rating_no+")").attr("data-rawscore",1 + parseInt(old_score))
+  $(".result").each(function(){
+    total += parseInt($(this).attr("data-rawscore"))
+  })
+  console.log(total)
+  $(".result").each(function(){
+    let score = parseFloat($(this).attr("data-rawscore"))
+    let percent = (Math.round(1000*score/total)/10).toString()
+    if (percent.slice(-2)[0] != ".") {
+      percent = percent + ".0"
+    }
+    $(this).text(percent + "% (" + score + " ratings)")
+  })
+}
 function activateVoteButtons(){
   $(".voteButton").mousedown(function(event){
     if (event.which === 1) {
@@ -103,25 +149,48 @@ function activateVoteButtons(){
     }
   })
 
+  
+
+
+
   $(".voteButton").click(function(){
+    let voteRating = parseInt(this.id.split("vote")[1])
     
-    let country_code = $(this).attr("data-govid")
-    $.ajax({
-      type: "POST",
-      headers: {
-        "X-CSRF-Token": csrfToken,
-      },
-      url: "/vote",
-      data: {
-        cc: country_code,
-        rating_no: this.id.split("vote")[1],
-        check_code: Date.now()
-      },
-      success: function(){
-        updateHistory()
-        updateAchievements()
-      }
-    })
+    console.log(voteRating)
+    console.log(lastVoteRating)
+    if (voteRating != lastVoteRating) {
+      sendUnsentVotes()
+      unsentVotes += 1
+      lastVoteRating = voteRating
+      sendUnsentVotes()
+    } else if (Date.now() - votesLastSentTime >= 1000) {
+      unsentVotes += 1
+      lastVoteRating = voteRating
+      sendUnsentVotes()
+    } else {
+      unsentVotes += 1
+      lastVoteRating = voteRating
+      renumberVotes(lastVoteRating)
+      updateHistory()
+      updateAchievements()
+    }
+    
+
+    country_id = parseInt($("#vote1").attr("data-govrecordid"))
+
+    if (!Cookies.get("lvc")) {
+      Cookies.set("lvc",0)
+    }
+    Cookies.set("lvc",Cookies.get("lvc") + 1)
+    if (!Array.isArray(Cookies.get("cvc"))) {
+      Cookies.set("cvc",[])
+    }
+    let a = Cookies.get("cvc")
+    if (!a.includes(country_id)){
+      a.push(country_id)
+    }
+    a = [...new Set(a)]
+    Cookies.set("cvc",a)
   })
 }
 
@@ -136,6 +205,7 @@ function activateSelect(){
         cc: $(this).val()        
       },
       success: function(){
+        sendUnsentVotes()
         $("body").removeClass("carers")
         window.history.pushState(null, null, $( "select option:selected" ).val());
         activateSelect()
