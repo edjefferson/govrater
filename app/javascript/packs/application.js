@@ -140,7 +140,7 @@ function renumberVotes(voted_rating_no){
     if (percent.slice(-2)[0] != ".") {
       percent = percent + ".0"
     }
-    $(this).text(percent + "% (" + score + " ratings)")
+    $(this).find("#today").text(percent + "% (" + score + " ratings)")
   })
 }
 function activateVoteButtons(){
@@ -165,7 +165,7 @@ function activateVoteButtons(){
       unsentVotes += 1
       lastVoteRating = voteRating
       sendUnsentVotes()
-    } else if (Date.now() - votesLastSentTime >= 10000) {
+    } else if (Date.now() - votesLastSentTime >= 1000) {
       unsentVotes += 1
       lastVoteRating = voteRating
       sendUnsentVotes()
