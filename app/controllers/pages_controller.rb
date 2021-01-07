@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    if params[:heroes] || (Time.now.wday == 4 && Time.now.hour == 20 && Time.now.minute < 10)
+    if params[:heroes] 
       @carers = true
     end
     unless cookies.encrypted["check_code"]
