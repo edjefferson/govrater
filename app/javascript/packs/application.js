@@ -269,4 +269,9 @@ $('document').ready(function(){
   activateVoteButtons()
   activateSelect()
   updateHistory()
+
+  $(window).on('beforeunload', function() {
+    console.log("bye!")
+    sendUnsentVotes()
+  });
 })
