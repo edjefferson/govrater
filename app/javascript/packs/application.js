@@ -135,6 +135,8 @@ function renumberVotes(voted_rating_no){
   $(".result").each(function(){
     let score = parseFloat($(this).attr("data-rawscore"))
     let percent = (Math.round(1000*score/total)/10).toString()
+    $(this).attr("data-rawpercent",100*score/total)
+    
     if (percent.slice(-2)[0] != ".") {
       percent = percent + ".0"
     }
@@ -163,7 +165,7 @@ function activateVoteButtons(){
       unsentVotes += 1
       lastVoteRating = voteRating
       sendUnsentVotes()
-    } else if (Date.now() - votesLastSentTime >= 1000) {
+    } else if (Date.now() - votesLastSentTime >= 10000) {
       unsentVotes += 1
       lastVoteRating = voteRating
       sendUnsentVotes()
