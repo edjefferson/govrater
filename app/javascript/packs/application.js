@@ -81,7 +81,7 @@ function updateAchievements(){
   }
 
   cAchievementNumbers.forEach( x => {
-    if (cvc.length >= x) {
+    if (Array.isArray(cvc) && cvc.length >= x) {
       $("#achievements").append(globesvg(colorArray.pop(),x + " governments rated!"))
       if (colorArray.length === 0){reloadColorArray()}
     } 
