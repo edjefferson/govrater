@@ -76,7 +76,7 @@ class PagesController < ApplicationController
 
   def vote
     cookies.encrypted["last_check"] = Time.now.to_i unless cookies.encrypted["last_check"]
-    max_clicks_before_check = 100
+    max_clicks_before_check = 200
     max_time_before_check = 25
     if cookies.encrypted["svc"] <= max_clicks_before_check && (cookies.encrypted["check_code"] == "empty" || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 500)
 
