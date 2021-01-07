@@ -1,5 +1,4 @@
 <% unless @no_vote %>
-$("#results").html("<%= escape_javascript(render 'votes') %>");
 
 country_id = parseInt($("#vote1").attr("data-govrecordid"))
 
@@ -13,8 +12,10 @@ if (!Array.isArray(Cookies.get("cvc"))) {
 a = Cookies.get("cvc")
 if (!a.includes(country_id)){
   a.push(country_id)
-  
 }
 a = [...new Set(a)]
 Cookies.set("cvc",a)
+
+$("#results").html("<%= escape_javascript(render 'votes') %>");
+
 <% end %>

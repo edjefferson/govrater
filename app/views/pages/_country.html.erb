@@ -16,12 +16,20 @@
     <div id="flagcontainer">
     <%= image_tag("flags/#{@government.country_code.downcase}.svg", :class=> "flag", :alt => "#{@government.name} flag") %></div>
         today?</h1>
-<div id="achievements"></div>
-        <div id="voteButtons">
-    <% if @carers %>
+<div id = "heroes">
+<% if @carers %>
+<%= image_tag("click.svg", :alt => "click symbol", :class => "clickleft") %>
+ <%= image_tag("click.svg", :alt => "click symbol", :class => "clickright") %>
 
-        <h2 style="text-align: center; font-size: 2em; padding-bottom: 1em;">PLEASE CLICK FOR OUR HEROES!</h2>
+ 
+        <h2 style="text-align: center; font-size: 2em; margin:0;">PLEASE CLICK FOR OUR HEROES!</h2>
+        <p style="text-align:center; padding-bottom: 2em; margin: 0;">(Or <a style="color: black;" href="https://members.parliament.uk/member/4070/contact">ask the government</a> to support NHS staff in a meaningful way by paying them properly.)</p>
 <% end %>
+</div>
+<div id="achievements"></div>
+
+        <div id="voteButtons">
+
     <% (1..4).each do |x| %>
     <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>" data-govrecordid="<%= @government.id %>">
       <%= image_tag("#{x}.svg", :alt => @alt_texts[x - 1]) %>

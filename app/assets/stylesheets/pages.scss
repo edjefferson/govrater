@@ -15,6 +15,9 @@ body {
 .carers {
   background-color: #acecf7;
 }
+
+
+
 #countrycontent {
    display: grid;
    grid-template-columns: 1fr minmax(50%, 800px) 1fr;
@@ -23,6 +26,21 @@ body {
    grid-template-areas:
       ". Gov ." ". Achievements ." ". Buttons ." ". Results ." ". . ."
 }
+
+
+.carers > #countrycontent {
+  display: grid;
+  grid-template-columns: 1fr minmax(50%, 800px) 1fr;
+  grid-template-rows: 0.25fr 5em 3em minmax(80px, auto) auto 3em;
+  gap: 0px 0px;
+  grid-template-areas:
+     ". Gov ." ". Heroes ." ". Achievements ." ". Buttons ." ". Results ." ". . ."
+}
+
+#heroes {
+  grid-area: Heroes;
+}
+
 
 #achievements {
   grid-area: Achievements;
@@ -174,3 +192,12 @@ select {
 
 }
 
+.clickleft{
+  float:left;
+  width: 50px;
+}
+
+.clickright{
+  float:right;
+  width: 50px;
+}
