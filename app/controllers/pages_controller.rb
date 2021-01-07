@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    cookies.encrypted["svc"] = 0
     if params[:heroes] 
       @carers = true
     end
@@ -74,22 +75,39 @@ class PagesController < ApplicationController
   end
 
   def vote
-    if cookies.encrypted["check_code"] == "empty" || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 500
-      
+    cookies.encrypted["last_check"] = Time.now.to_i unless cookies.encrypted["last_check"]
+    max_clicks_before_check = 100
+    max_time_before_check = 25
+    if cookies.encrypted["svc"] <= max_clicks_before_check && (cookies.encrypted["check_code"] == "empty" || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 500)
+
       cookies.encrypted["check_code"] = params[:check_code]
 
       @government = Government.find_by(country_code: params[:cc].upcase)
 
       if [1,2,3,4].include?(params[:rating_no].to_i)
         rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
-        rating.votes += params[:vote_count].to_i > 10 ? 10 : params[:vote_count].to_i
+        new_votes = params[:vote_count].to_i > 10 ? 10 : params[:vote_count].to_i
+        rating.votes += new_votes
         rating.save
         
         @votes = Rating.where(government_id: @government.id).order(:rating_no)
         @total_votes = @votes.sum("votes")
+        cookies.encrypted["svc"] = cookies.encrypted["svc"].to_i + new_votes
 
         respond_to do |format|
-          format.js {}
+          puts Time.now().to_i - cookies.encrypted["last_check"]
+          puts cookies.encrypted["svc"].to_i
+          if cookies.encrypted["svc"].to_i > max_clicks_before_check && Time.now().to_i - cookies.encrypted["last_check"] < max_time_before_check
+            cookies.encrypted["svc"] = 0
+            cookies.encrypted["last_check"] = Time.now().to_i
+            format.js { render "vote", :locals => { :@check_human => true } }
+          elsif cookies.encrypted["svc"].to_i > max_clicks_before_check
+            cookies.encrypted["svc"] = 0
+            cookies.encrypted["last_check"] = Time.now().to_i
+            format.js {}
+          else
+            format.js {}
+          end
         end
       end
 

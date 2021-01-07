@@ -3,4 +3,8 @@
 
 $("#results").html("<%= escape_javascript(render 'votes') %>");
 
+<% if @check_human %>
+  $(".voteButton").attr("data-disabled","true")
+  $("#popup").show()
+<% end %>
 <% end %>

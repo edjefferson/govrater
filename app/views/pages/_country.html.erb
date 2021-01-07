@@ -31,7 +31,7 @@
         <div id="voteButtons">
 
     <% (1..4).each do |x| %>
-    <div id="vote<%= x %>" class="voteButton" data-govid="<%= @government.country_code %>" data-govrecordid="<%= @government.id %>">
+    <div id="vote<%= x %>" class="voteButton" data-disabled="false" data-govid="<%= @government.country_code %>" data-govrecordid="<%= @government.id %>">
       <%= image_tag("#{x}.svg", :alt => @alt_texts[x - 1]) %>
     </div>
     <% end %>
