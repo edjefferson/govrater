@@ -82,7 +82,7 @@ class PagesController < ApplicationController
 
       if [1,2,3,4].include?(params[:rating_no].to_i)
         rating = Rating.where(government_id: @government.id, rating_no: params[:rating_no].to_i).first_or_create
-        rating.votes += params[:vote_count].to_i
+        rating.votes += params[:vote_count].to_i > 10 ? 10 : params[:vote_count].to_i
         rating.save
         
         @votes = Rating.where(government_id: @government.id).order(:rating_no)
