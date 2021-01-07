@@ -171,9 +171,8 @@ function activateVoteButtons(){
       unsentVotes += 1
       lastVoteRating = voteRating
       renumberVotes(lastVoteRating)
-      updateHistory()
-      updateAchievements()
     }
+    
     
 
     country_id = parseInt($("#vote1").attr("data-govrecordid"))
@@ -191,6 +190,9 @@ function activateVoteButtons(){
     }
     a = [...new Set(a)]
     Cookies.set("cvc",a)
+
+    updateHistory()
+    updateAchievements()
   })
 }
 
