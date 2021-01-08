@@ -4,7 +4,13 @@
 $("#results").html("<%= escape_javascript(render 'votes') %>");
 
 <% if @check_human %>
+  function onSubmit(token) {
+    $(".voteButton").attr("data-disabled","false")
+    $("#popup").hide()
+  }
   $(".voteButton").attr("data-disabled","true")
+  clickMessages = ["Wow, what a clicker!","Just so good at clicking!","Best Clicker Ever!","So much click!"]
+  $("#popup > p").text(clickMessages[Math.floor(Math.random() * clickMessages.length)])
   $("#popup").show()
 <% end %>
 <% end %>
