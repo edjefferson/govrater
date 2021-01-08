@@ -76,8 +76,8 @@ class PagesController < ApplicationController
 
   def vote
     cookies.encrypted["last_check"] = Time.now.to_i unless cookies.encrypted["last_check"]
-    max_clicks_before_check = 200
-    max_time_before_check = 25
+    max_clicks_before_check = 25
+    max_time_before_check = 3
 
     
     if cookies.encrypted["svc"] <= max_clicks_before_check && (cookies.encrypted["check_code"] == "empty" || params[:check_code].to_i > cookies.encrypted["check_code"].to_i + 500)
@@ -101,12 +101,15 @@ class PagesController < ApplicationController
           if cookies.encrypted["svc"].to_i > max_clicks_before_check && Time.now().to_i - cookies.encrypted["last_check"] < max_time_before_check
             cookies.encrypted["svc"] = 0
             cookies.encrypted["last_check"] = Time.now().to_i
+            puts "DOING A CHECK"
             format.js { render "vote", :locals => { :@check_human => true } }
           elsif cookies.encrypted["svc"].to_i > max_clicks_before_check
+            puts "NOT DOING A CHECK - ENOUGH TIME PASSED"
             cookies.encrypted["svc"] = 0
             cookies.encrypted["last_check"] = Time.now().to_i
             format.js {}
           else
+            puts "NOT DOING A CHECK - #{cookies.encrypted["svc"].to_i}"
             format.js {}
           end
         end
