@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   def index
-    cookies.encrypted["svc"] = 0
+    cookies.encrypted["svc"] = 0 unless cookies.encrypted["svc"]
     if params[:heroes] 
       @carers = true
     end

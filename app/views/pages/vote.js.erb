@@ -5,6 +5,7 @@ $("#results").html("<%= escape_javascript(render 'votes') %>");
 
 <% if @check_human %>
   function onSubmit(token) {
+    console.log(token)
     $(".voteButton").attr("data-disabled","false")
     $("#popup").hide()
   }
