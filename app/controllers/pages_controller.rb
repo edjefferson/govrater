@@ -76,7 +76,7 @@ class PagesController < ApplicationController
 
   def vote
     cookies.encrypted["last_check"] = Time.now.to_i unless cookies.encrypted["last_check"]
-    max_clicks_before_check = 25
+    max_clicks_before_check = 3
     max_time_before_check = 3
 
     
